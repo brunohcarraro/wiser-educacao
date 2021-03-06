@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export default styled.div`
-	height: 100vh;
-	background-color: green;
+	padding: 0px 120px;
 	width: 45%;
-	float: left;
 `;
