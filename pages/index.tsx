@@ -46,6 +46,7 @@ export default class extends Component<any, any>  {
 	  
 	    if (validator.isEmail(email)) { 
 	      this.setState({emailError: 'válido'});
+	      this.setState({email: email});
 	    } else { 
 	      this.setState({emailError: 'inválido'});
 	    } 
@@ -69,7 +70,7 @@ export default class extends Component<any, any>  {
 			let resp_auth = api.get("/login").then((response) => {
 
 		      	response.data.forEach((obj) => {
-	                if (obj.email == "brunocrro@hotmail.com" && obj.password == "@Bruno20211+") {
+	                if (obj.email == this.state.email && obj.password == this.state.password) {
 	                	this.setState({textLogin: "Login efetuado com sucesso!"});
 	                	this.setState({visible: true})
 	                }else{
