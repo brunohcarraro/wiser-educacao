@@ -9,7 +9,7 @@ export default styled.button`
   font-weight: 600;
   width: 100%;
   padding: 20px 10px;
-  font-size: 20px;
+  font-size: 21px;
   cursor: pointer;
 
 `;
