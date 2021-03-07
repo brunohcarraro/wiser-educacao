@@ -11,6 +11,7 @@ import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import { createGlobalStyle } from 'styled-components';
 import validator from 'validator';
+import ButtonLoader from "../components/ButtonLoader";
 
 const GlobalStyle = createGlobalStyle`
 	@import 					url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
@@ -23,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
 	.rodal-dialog 				{border-radius: 10px; background: linear-gradient(267.79deg, #383E71 0%, #9D25B0 99.18%);}
 	.rodal-dialog h2 			{color: #fff; text-align: center; padding: 30px 20px; font-size: 30px; font-weight: 400;}
 	label.error 				{color: #FF377F; text-transform: inherit !important; margin-top: -15px; margin-bottom: 25px}
+	.button:disabled 			{opacity: 0.5;}
 	@media(max-width: 1200px)	{ h1 {font-size: 38px;} h3 {font-size: 16px;} }
 	@media(max-width: 768px)	{ label {padding-left: 0px;} body{ background: #130525;} }
 	@media(max-width: 540px)	{ h1 {font-size: 24px;} }
@@ -33,6 +35,7 @@ export default class extends Component<any, any>  {
 	constructor(props) {
 	    super(props);
 	    this.state = {
+    		loading: false,
 			error: false,
 			visible: false,
 			testLogin: '',
@@ -56,6 +59,7 @@ export default class extends Component<any, any>  {
 	} 
 
 	handleLogin = () => {
+		this.setState({ loading: true });
 		this.setState({erro: false});
 		this.setState({passError: false});
 		this.setState({textError: false});
@@ -65,12 +69,15 @@ export default class extends Component<any, any>  {
 
 		if (this.state.emailError == "inválido") {
 			this.setState({erro: true});
+			this.setState({ loading: false });
 			return;
 		}else if(this.state.email == ""){
 			this.setState({textError: true});
+			this.setState({ loading: false });
 			return;
 		}else if(this.state.password == ""){
 			this.setState({passError: true});
+			this.setState({ loading: false });
 			return;
 		}else{
 			// Resp for autentication
@@ -79,17 +86,21 @@ export default class extends Component<any, any>  {
 		      	response.data.forEach((obj) => {
 	                if (obj.email == this.state.email && obj.password == this.state.password) {
 	                	this.setState({textLogin: "Login efetuado com sucesso!"});
-	                	this.setState({visible: true})
+	                	this.setState({visible: true});
+						this.setState({ loading: false });
 	                }else{
 	                	this.setState({textLogin: "Login incorreto"});
-	                	this.setState({visible: true})
+	                	this.setState({visible: true});
+						this.setState({ loading: false });
 	                }
 	            });
 
 		      }).catch((err) => {
 
             	this.setState({textLogin: "Ocorreu um erro, tente novamente."});
-            	this.setState({visible: true})
+            	this.setState({visible: true});
+
+				this.setState({ loading: false });
 
 		     });
 		}
@@ -103,7 +114,7 @@ export default class extends Component<any, any>  {
 	}
 
 	validate = (text) => {
-		console.log(this.isEmail(text));
+		this.isEmail(text);
 	}
 
 	hide() {
@@ -111,6 +122,7 @@ export default class extends Component<any, any>  {
     }
 
 	render () {
+		const { loading } = this.state;
 		return (
 			<>
 				<GlobalStyle />
@@ -137,7 +149,10 @@ export default class extends Component<any, any>  {
 						{this.state.passError &&
 							<label className="error">Digite uma senha.</label>
 						}
-						<Button onClick={(e) => this.handleLogin()}>Entrar</Button>
+						<Button className="button" onClick={(e) => this.handleLogin()} disabled={loading}>
+							{loading && <span>Acessando...</span>}
+							{!loading && <span>Entrar</span>}
+				        </Button>
 						<p className="forget">Esqueceu seu login ou senha? <span>Clique <a>aqui</a></span></p>
 					</FormLogin>
 				</MainContent>
