@@ -1,10 +1,9 @@
-Para rodar o projeto
+Para rodar o projeto <br/>
 
-cd wiser-educacao
-npm install source-map --save-dev
-npm run dev
+$ cd wiser-educacao  <br/>
+$ npm run dev
 
 
-Para login:
-Email: brunocrro@hotmail.com
+Para login: <br/>
+Email: brunocrro@hotmail.com <br/>
 Senha: @Bruno20211+
