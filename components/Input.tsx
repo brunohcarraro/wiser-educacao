@@ -11,7 +11,7 @@ export default styled.input`
   ::placeholder {
     color: #989FDB;
   }
-  width: 100%;
+  width: 93%;
   margin-bottom: 30px;
   background-color: transparent;
 `;

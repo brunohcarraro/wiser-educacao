@@ -12,4 +12,10 @@ export default styled.button`
   font-size: 21px;
   cursor: pointer;
 
+  @media(max-width: 768px){ 
+
+    border: 0px;
+    box-shadow: none;
+  }
+
 `;

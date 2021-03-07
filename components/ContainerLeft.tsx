@@ -9,4 +9,20 @@ export default styled.div`
 	background-position: center;
 	width: 55%;
 	float: left;
+
+	@media(max-width: 1400px){
+
+		width: 50%;
+
+	}
+
+	@media(max-width: 992px){
+
+		width: 40%;
+	}
+
+	@media(max-width: 768px){ 
+
+		width: 100%;
+	}
 `;
